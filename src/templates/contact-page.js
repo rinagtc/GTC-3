@@ -1,20 +1,21 @@
 import React from "react"
 import { graphql, StaticQuery } from "gatsby"
-import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import { navigate } from 'gatsby-link'
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { navigate } from "gatsby-link"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
 import "../utils/normalize.css"
 import "../utils/css/screen.css"
+
 function encode(data) {
   return Object.keys(data)
-    .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
-    .join('&')
+    .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+    .join("&")
 }
-const ContactPage = ({ data }, location) => {
 
+const ContactPage = ({ data }, location) => {
   const [state, setState] = React.useState({})
   const handleChange = (e) => {
     setState({ ...state, [e.target.name]: e.target.value })
@@ -23,51 +24,64 @@ const ContactPage = ({ data }, location) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     const form = e.target
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: encode({
-        'form-name': form.getAttribute('name'),
+        "form-name": form.getAttribute("name"),
         ...state,
       }),
     })
-      .then(() => navigate(form.getAttribute('action')))
+      .then(() => navigate(form.getAttribute("action")))
       .catch((error) => alert(error))
   }
 
   const siteTitle = data.site.siteMetadata.title
   const social = data.site.siteMetadata.social
+  const frontmatter = data.markdownRemark.frontmatter
+  const image = getImage(frontmatter.thumbnail)
+
   return (
     <Layout title={siteTitle} social={social}>
-      <Seo title={data.markdownRemark.frontmatter.title}
-        description={data.markdownRemark.frontmatter.description} 
-        image={data.markdownRemark.frontmatter.thumbnail?.childImageSharp?.fluid?.src || ''}
+      <Seo
+        title={frontmatter.title}
+        description={frontmatter.description}
+        image={
+          frontmatter.thumbnail?.childImageSharp?.gatsbyImageData?.images
+            ?.fallback?.src || ""
+        }
+      />
 
-        />
-     
-      <article className="contact-form page-template ">
-      {data.markdownRemark.frontmatter.thumbnail && (
-      
-    <div className="post-content-image">
-       {/* <GatsbyImage
-        image={getImage(data.markdownRemark.frontmatter.thumbnail)}
-          className="kg-image"
-          alt={data.markdownRemark.frontmatter.title}
-    /> */}
-  </div>
-)}
+      <article className="contact-form page-template">
+        {image && (
+          <div className="post-content-image">
+            <GatsbyImage
+              image={image}
+              className="kg-image"
+              alt={frontmatter.title}
+            />
+          </div>
+        )}
 
         <div className="post-content-body">
-          <p></p>
-          <h3 id="forms"><b>Form</b></h3>
-          <form name="contact" method="POST" data-netlify="true" action="thanks" onSubmit={handleSubmit}
+          <h3 id="forms">
+            <b>Form</b>
+          </h3>
+          <form
+            name="contact"
+            method="POST"
+            data-netlify="true"
+            action="thanks"
+            onSubmit={handleSubmit}
           >
             <input type="hidden" name="form-name" value="contact" />
             <p hidden>
               <label>
-                Don’t fill this out: <input name="bot-field" onChange={handleChange} />
+                Don’t fill this out:{" "}
+                <input name="bot-field" onChange={handleChange} />
               </label>
             </p>
+
             <div className="row gtr-uniform">
               <div className="col-6 col-12-xsmall">
                 <input
@@ -75,8 +89,8 @@ const ContactPage = ({ data }, location) => {
                   name="full-name"
                   id="full-name"
                   onChange={handleChange}
-                  placeholder="full name"
-                  required={true}
+                  placeholder="Full name"
+                  required
                 />
               </div>
               <div className="col-6 col-12-xsmall">
@@ -85,11 +99,10 @@ const ContactPage = ({ data }, location) => {
                   name="username"
                   id="username"
                   onChange={handleChange}
-                  placeholder="username"
-                  required={true}
+                  placeholder="Username"
+                  required
                 />
               </div>
-
               <div className="col-6 col-12-xsmall">
                 <input
                   type="email"
@@ -97,7 +110,7 @@ const ContactPage = ({ data }, location) => {
                   id="demo-email"
                   onChange={handleChange}
                   placeholder="Email"
-                  required={true}
+                  required
                 />
               </div>
               <div className="col-6 col-12-xsmall">
@@ -107,79 +120,56 @@ const ContactPage = ({ data }, location) => {
                   id="location"
                   onChange={handleChange}
                   placeholder="Location"
-                  required={true}
+                  required
                 />
               </div>
-              {/* Break */}
-              {/* General, Purchase, Commissions, Exhibitions, Gallery Feature, Other */}
+
               <div className="col-12">
-                <select name="category" id="category" onChange={handleChange} required={true}>
+                <select
+                  name="category"
+                  id="category"
+                  onChange={handleChange}
+                  required
+                >
                   <option value>-Materials-</option>
-                  <option value={"Linux Fundamental"}>Linux Fundamental</option>
-                  <option value={"Web Development"}>Web Development</option>
-                  <option value={"Google Workspace"}>Google Workspace</option>
-                  <option value={"Bisnis Digitals"}>Bisnis Digital</option>
-                  <option value={"Mikrotik Fundamental"}>Mikrotik Fundamental</option>
-                  
+                  <option value="Linux Fundamental">Linux Fundamental</option>
+                  <option value="Web Development">Web Development</option>
+                  <option value="Google Workspace">Google Workspace</option>
+                  <option value="Bisnis Digital">Bisnis Digital</option>
+                  <option value="Mikrotik Fundamental">
+                    Mikrotik Fundamental
+                  </option>
                 </select>
               </div>
 
-              {/* Break */}
-              {/* <div className="col-6 col-12-small">
-                <input type="checkbox"
-                  id="send-a-copy"
-                  name="send-a-copy"
-                  defaultValue='false'
-                  onChange={handleChange} />
-                <label htmlFor="demo-copy">Email me a copy</label>
-              </div>
-              <div className="col-6 col-12-small">
-                <input
-                  type="checkbox"
-                  id="iam-human"
-                  name="iam-human"
-                  defaultValue='false'
-                  onChange={handleChange}
-                />
-                <label htmlFor="demo-human">I am a human</label>
-              </div> */}
-              {/* Break */}
               <div className="col-12">
                 <textarea
                   name="message"
                   id="message"
                   placeholder="Enter your message"
                   rows={6}
-                  defaultValue={""}
                   onChange={handleChange}
-                  required={true}
+                  required
                 />
               </div>
-              
+
               <div data-netlify-recaptcha="true"></div>
-  
-              {/* Break */}
+
               <div className="col-12">
                 <ul className="actions">
                   <li>
                     <input
                       type="submit"
-                      defaultValue="Send Message"
+                      value="Send Message"
                       className="primary"
                     />
                   </li>
-
                 </ul>
               </div>
             </div>
           </form>
         </div>
-
-
       </article>
-
-
-
     </Layout>
   )
 }
@@ -199,97 +189,21 @@ const indexQuery = graphql`
       frontmatter {
         title
         description
-        thumbnail
+        thumbnail {
+          childImageSharp {
+            gatsbyImageData(width: 1200, quality: 90, placeholder: BLURRED)
+          }
+        }
       }
     }
   }
 `
 
-export default props => (
+export default (props) => (
   <StaticQuery
     query={indexQuery}
-    render={data => (
+    render={(data) => (
       <ContactPage location={props.location} data={data} {...props} />
     )}
   />
 )
-
-
-// import React from 'react'
-// import { navigate } from 'gatsby-link'
-// // import Layout from '../layout'
-
-// function encode(data) {
-//   return Object.keys(data)
-//     .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
-//     .join('&')
-// }
-
-// export default function Contact() {
-//   const [state, setState] = React.useState({})
-
-//   const handleChange = (e) => {
-//     setState({ ...state, [e.target.name]: e.target.value })
-//   }
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault()
-//     const form = e.target
-//     fetch('/', {
-//       method: 'POST',
-//       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-//       body: encode({
-//         'form-name': form.getAttribute('name'),
-//         ...state,
-//       }),
-//     })
-//       .then(() => navigate(form.getAttribute('action')))
-//       .catch((error) => alert(error))
-//   }
-
-//   return (
-//     <div>
-//       <h1>Contact</h1>
-//       <form
-//         name="contact"
-//         method="post"
-//         action="/thanks/"
-//         data-netlify="true"
-//         data-netlify-honeypot="bot-field"
-//         onSubmit={handleSubmit}
-//       >
-//         {/* The `form-name` hidden field is required to support form submissions without JavaScript */}
-        // <input type="hidden" name="form-name" value="contact" />
-        // <p hidden>
-        //   <label>
-        //     Don’t fill this out: <input name="bot-field" onChange={handleChange} />
-        //   </label>
-        // </p>
-//         <p>
-//           <label>
-//             Your name:
-//             <br />
-//             <input type="text" name="name" onChange={handleChange} />
-//           </label>
-//         </p>
-//         <p>
-//           <label>
-//             Your email:
-//             <br />
-//             <input type="email" name="email" onChange={handleChange} />
-//           </label>
-//         </p>
-//         <p>
-//           <label>
-//             Message:
-//             <br />
-//             <textarea name="message" onChange={handleChange} />
-//           </label>
-//         </p>
-//         <p>
-//           <button type="submit">Send</button>
-//         </p>
-//       </form>
-//     </div>
-//   )
-// }

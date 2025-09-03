@@ -5,7 +5,7 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
-const ArtikelPage = ({ data, location }) => {
+const ProfilePage = ({ data, location }) => {
   const { markdownRemark: post, site } = data
   const { title, description, thumbnail } = post.frontmatter
   const image = getImage(thumbnail)
@@ -45,14 +45,15 @@ const ArtikelPage = ({ data, location }) => {
   )
 }
 
-ArtikelPage.propTypes = {
+ProfilePage.propTypes = {
   data: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
 }
 
-export default ArtikelPage
+export default ProfilePage
+
 export const query = graphql`
-  query ArtikelPage {
+  query ProfilePage {
     site {
       siteMetadata {
         title
@@ -68,7 +69,11 @@ export const query = graphql`
       frontmatter {
         title
         description
-        thumbnail
+        thumbnail {
+          childImageSharp {
+            gatsbyImageData(width: 1200, quality: 90, placeholder: BLURRED)
+          }
+        }
       }
     }
   }

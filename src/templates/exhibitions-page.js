@@ -1,102 +1,119 @@
-import React from "react";
-// import PropTypes from "prop-types";
-import { graphql } from "gatsby";
+import React from "react"
+import { graphql } from "gatsby"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import PostCard from "../components/postCard"
 
-// eslint-disable-next-line
 const WorkPage = ({ data }) => {
-    const siteTitle = data.site.siteMetadata.title
-    const social = data.site.siteMetadata.social
-    const posts = data.allMarkdownRemark.edges
-    let postCounter = 0
+  const siteTitle = data.site.siteMetadata.title
+  const social = data.site.siteMetadata.social
+  const posts = data.allMarkdownRemark.edges
+  const pageData = data.markdownRemark.frontmatter
+  const pageImage = getImage(pageData.thumbnail)
 
-    return (
-        <Layout title={siteTitle} social={social}>
-            <Seo
-                keywords={[`Gatsby Theme`, `Free Gatsby Template`, `Clay Gatsby Theme`]}
-                title={data.markdownRemark.frontmatter.title}
-                description={data.markdownRemark.frontmatter.description || ''}
-                image={data.markdownRemark.frontmatter.thumbnail || ''}
+  let postCounter = 0
+
+  return (
+    <Layout title={siteTitle} social={social}>
+      <Seo
+        keywords={[
+          `Gatsby Theme`,
+          `Free Gatsby Template`,
+          `Clay Gatsby Theme`,
+        ]}
+        title={pageData.title}
+        description={pageData.description || ""}
+        image={
+          pageData.thumbnail?.childImageSharp?.gatsbyImageData?.images
+            ?.fallback?.src
+        }
+      />
+
+      {pageImage && (
+        <GatsbyImage
+          image={pageImage}
+          alt={pageData.title}
+          className="kg-image"
+          style={{ maxWidth: "100%", marginBottom: "2rem", borderRadius: "8px" }}
+        />
+      )}
+
+      {data.site.siteMetadata.description && (
+        <header className="page-head">
+          <h2 className="page-head-title">
+            {data.site.siteMetadata.description}
+          </h2>
+        </header>
+      )}
+
+      <div className="post-feed card-con">
+        {posts.map(({ node }) => {
+          postCounter++
+          return (
+            <PostCard
+              key={node.fields.slug}
+              count={postCounter}
+              node={node}
+              postClass="post"
             />
-
-            {data.markdownRemark.frontmatter.thumbnail && (
-                <img
-                    src={data.markdownRemark.frontmatter.thumbnail}
-                    alt={data.markdownRemark.frontmatter.title}
-                    className="kg-image"
-                    style={{ maxWidth: "100%", marginBottom: "2rem", borderRadius: "8px" }}
-                />
-            )}
-
-            {data.site.siteMetadata.description && (
-                <header className="page-head">
-                    <h2 className="page-head-title">
-                        {data.site.siteMetadata.description}
-                    </h2>
-                </header>
-            )}
-
-            <div className="post-feed card-con">
-                {posts.map(({ node }) => {
-                    postCounter++
-                    return (
-                        <PostCard
-                            key={node.fields.slug}
-                            count={postCounter}
-                            node={node}
-                            postClass={`post`}
-                        />
-                    )
-                })}
-            </div>
-        </Layout>
-    )
+          )
+        })}
+      </div>
+    </Layout>
+  )
 }
 
 export default WorkPage
 
 export const WorkPageQuery = graphql`
-query IndexPage {
-  site {
-    siteMetadata {
-      title
-      author
-      social {
-        twitter
-        facebook
-      }
-      description
-    }
-  }
-
-  markdownRemark(frontmatter: { templateKey: { eq: "exhibitions-sub-page" } }) {
-    frontmatter {
-      title
-      description
-      thumbnail
-    }
-  }
-
-  allMarkdownRemark(
-    filter: { frontmatter: { templateKey: { eq: "exhibitions-sub-page" } } }
-    limit: 30
-    sort: { frontmatter: { date: DESC } }
-  ) {
-    edges {
-      node {
-        fields {
-          slug
+  query IndexPage {
+    site {
+      siteMetadata {
+        title
+        author
+        social {
+          twitter
+          facebook
         }
-        frontmatter {
-          date(formatString: "DD:MM:YYYY hh:mm a")
-          title
-          description
-          thumbnail
+        description
+      }
+    }
+
+    markdownRemark(frontmatter: { templateKey: { eq: "exhibitions-sub-page" } }) {
+      frontmatter {
+        title
+        description
+        thumbnail {
+          childImageSharp {
+            gatsbyImageData(width: 1200, quality: 90, placeholder: BLURRED)
+          }
         }
       }
     }
+
+    allMarkdownRemark(
+      filter: { frontmatter: { templateKey: { eq: "exhibitions-sub-page" } } }
+      limit: 30
+      sort: { frontmatter: { date: DESC } }
+    ) {
+      edges {
+        node {
+          fields {
+            slug
+          }
+          frontmatter {
+            date(formatString: "DD:MM:YYYY hh:mm a")
+            title
+            description
+            thumbnail {
+              childImageSharp {
+                gatsbyImageData(width: 600, quality: 90, placeholder: BLURRED)
+              }
+            }
+          }
+        }
+      }
+    }
   }
-}
 `

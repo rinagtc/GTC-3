@@ -1,5 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import LeftIcon from "../img/left-icon.svg"
@@ -30,15 +31,20 @@ const BlogPostTemplate = (props) => {
   const nextLinkStatus = next?.frontmatter.templateKey === "exhibitions-sub-page"
   const previousLinkStatus = previous?.frontmatter.templateKey === "exhibitions-sub-page"
 
+  const image = getImage(post.frontmatter.thumbnail)
+
   return (
     <Layout location={location} title={siteTitle} social={social}>
       <Seo
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
-        image={post.frontmatter.thumbnail}
+        image={
+          post.frontmatter.thumbnail?.childImageSharp?.gatsbyImageData?.images
+            ?.fallback?.src || ""
+        }
       />
 
-      <article className={`post-content ${post.frontmatter.thumbnail ? "with-image" : "no-image"}`}>
+      <article className={`post-content ${image ? "with-image" : "no-image"}`}>
         <header className="post-content-header">
           <h1 className="post-content-title">{post.frontmatter.title}</h1>
         </header>
@@ -47,9 +53,9 @@ const BlogPostTemplate = (props) => {
           <p className="post-content-excerpt">{post.frontmatter.description}</p>
         )}
 
-        {post.frontmatter.thumbnail && (
-          <img
-            src={post.frontmatter.thumbnail}
+        {image && (
+          <GatsbyImage
+            image={image}
             className="kg-image"
             alt={post.frontmatter.title}
           />
@@ -60,14 +66,17 @@ const BlogPostTemplate = (props) => {
           dangerouslySetInnerHTML={{ __html: post.html }}
         />
 
-        <div className="post-link" style={{ display: "flex", justifyContent: "space-between", marginTop: "3rem" }}>
+        <div
+          className="post-link"
+          style={{ display: "flex", justifyContent: "space-between", marginTop: "3rem" }}
+        >
           <div>
             <a
               style={{
                 display: nextLinkStatus ? "flex" : "none",
                 alignItems: "center",
                 color: "#131313",
-                fontSize: "1.5rem"
+                fontSize: "1.5rem",
               }}
               href={nextSlug}
             >
@@ -82,7 +91,7 @@ const BlogPostTemplate = (props) => {
                 display: previousLinkStatus ? "flex" : "none",
                 alignItems: "center",
                 color: "#131313",
-                fontSize: "1.5rem"
+                fontSize: "1.5rem",
               }}
               href={previousSlug}
             >
@@ -116,7 +125,11 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         description
-        thumbnail  # <-- Biarkan tetap string (tidak pakai {...})
+        thumbnail {
+          childImageSharp {
+            gatsbyImageData(width: 1200, quality: 90, placeholder: BLURRED)
+          }
+        }
       }
     }
   }

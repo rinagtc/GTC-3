@@ -43,16 +43,18 @@ const BlogPostTemplate = (props) => {
   const previousLinkStatus =
     pageContext.previous?.frontmatter.templateKey === "blog-post"
 
-  // Ambil thumbnail jika tersedia
-  const imageSrc = post.frontmatter.thumbnail || ""
-
+  // Ambil thumbnail sebagai GatsbyImageData
+  const imageData = getImage(post.frontmatter.thumbnail)
 
   return (
     <Layout location={location} title={siteTitle} social={social}>
       <SEO
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
-        image={imageSrc}
+        image={
+          post.frontmatter.thumbnail?.childImageSharp?.gatsbyImageData?.images
+            ?.fallback?.src
+        }
       />
 
       <article
@@ -70,10 +72,10 @@ const BlogPostTemplate = (props) => {
           </p>
         )}
 
-        {post.frontmatter.thumbnail && (
+        {imageData && (
           <div className="post-content-image">
             <GatsbyImage
-              image={getImage(post.frontmatter.thumbnail)}
+              image={imageData}
               className="kg-image"
               alt={post.frontmatter.title}
             />
@@ -148,9 +150,16 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         description
-        thumbnail  # ✅ sudah benar sekarang
+        thumbnail {
+          childImageSharp {
+            gatsbyImageData(
+              width: 1200
+              quality: 90
+              placeholder: BLURRED
+            )
+          }
+        }
       }
     }
   }
 `
-

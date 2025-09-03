@@ -10,7 +10,10 @@ const WorkPage = ({ data }) => {
   const social = data.site.siteMetadata.social;
   const posts = data.allMarkdownRemark.edges;
   const pageData = data.markdownRemark.frontmatter;
-  const seoImage = pageData.thumbnail?.childImageSharp?.fluid?.src || "";
+
+  // ✅ ganti ke gatsbyImageData, nggak pakai fluid lagi
+  const seoImage =
+    pageData.thumbnail?.childImageSharp?.gatsbyImageData?.images?.fallback?.src || "";
 
   let postCounter = 0;
 
@@ -47,6 +50,7 @@ const WorkPage = ({ data }) => {
 };
 
 export default WorkPage;
+
 export const WorkPageQuery = graphql`
   query IndexPage {
     site {
@@ -65,7 +69,15 @@ export const WorkPageQuery = graphql`
       frontmatter {
         title
         description
-        thumbnail  # ✅ ubah di sini
+        thumbnail {
+          childImageSharp {
+            gatsbyImageData(
+              width: 1200
+              quality: 90
+              placeholder: BLURRED
+            )
+          }
+        }
       }
     }
 
@@ -84,7 +96,15 @@ export const WorkPageQuery = graphql`
             title
             description
             tags
-            thumbnail  # ✅ ubah juga di sini
+            thumbnail {
+              childImageSharp {
+                gatsbyImageData(
+                  width: 600
+                  quality: 90
+                  placeholder: BLURRED
+                )
+              }
+            }
           }
         }
       }

@@ -1,6 +1,5 @@
-import React from "react";
-// import PropTypes from "prop-types";
-import { graphql } from "gatsby";
+import React from "react"
+import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import PostCard from "../components/postCard"
@@ -11,7 +10,10 @@ const IndexPage = ({ data }) => {
   const posts = data.allMarkdownRemark.edges
   const frontmatter = data.markdownRemark.frontmatter
 
-  const seoImage = frontmatter?.thumbnail
+  // Ambil SEO image dari gatsbyImageData fallback
+  const seoImage =
+    frontmatter?.thumbnail?.childImageSharp?.gatsbyImageData?.images?.fallback
+      ?.src || ""
 
   let postCounter = 0
 
@@ -20,7 +22,7 @@ const IndexPage = ({ data }) => {
       <Seo
         keywords={[`Gatsby Theme`, `Free Gatsby Template`, `Clay Gatsby Theme`]}
         title={frontmatter.title}
-        description={frontmatter.description || ''}
+        description={frontmatter.description || ""}
         image={seoImage}
       />
       <div className="post-feed">
@@ -58,7 +60,11 @@ export const IndexPageQuery = graphql`
       frontmatter {
         title
         description
-        thumbnail
+        thumbnail {
+          childImageSharp {
+            gatsbyImageData(width: 1200, quality: 90, placeholder: BLURRED)
+          }
+        }
       }
     }
 
@@ -76,7 +82,11 @@ export const IndexPageQuery = graphql`
             date(formatString: "MMMM DD, YYYY")
             title
             description
-            thumbnail
+            thumbnail {
+              childImageSharp {
+                gatsbyImageData(width: 600, quality: 80, placeholder: BLURRED)
+              }
+            }
           }
         }
       }

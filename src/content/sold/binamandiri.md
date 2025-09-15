@@ -7,6 +7,6 @@ description: ""
 ---
 ![bina2](/img/Bina2.png) -
 
-![bina1](/img/12legok22.png) -
+![bina1](/img/Bina1.png) -
 
 

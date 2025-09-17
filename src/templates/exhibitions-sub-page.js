@@ -56,8 +56,8 @@ const BlogPostTemplate = (props) => {
         {image && (
           <GatsbyImage
             image={image}
-            className="kg-image"
             alt={post.frontmatter.title}
+            className="post-thumbnail"
           />
         )}
 
@@ -127,7 +127,13 @@ export const pageQuery = graphql`
         description
         thumbnail {
           childImageSharp {
-            gatsbyImageData(width: 1200, quality: 90, placeholder: BLURRED)
+            gatsbyImageData(
+              width: 1200
+              height: 300
+              layout: CONSTRAINED
+              quality: 90
+              placeholder: BLURRED
+            )
           }
         }
       }

@@ -284,3 +284,49 @@ collections:
               min: 1,
               options: [{ label: "Main", value: "main" }],
             }
+      backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "static/img"
+public_folder: "/img"
+
+collections:
+  - name: "artikel-sub-pages"
+    label: "Artikel Sub Pages"
+    folder: "src/content/artikel-sub-pages"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    preview_path: "artikel-sub-pages/{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text", required: false }
+      - {
+          label: "Date",
+          name: "date",
+          widget: "datetime",
+          default: "",
+          format: "YYYY-MM-DD HH:mm",
+          date_format: "YYYY-MM-DD",
+          time_format: "HH:mm",
+          picker_utc: false
+        }
+      - {
+          label: "Thumbnail",
+          name: "thumbnail",
+          widget: "image",
+          required: false
+        }
+      - {
+          label: "Tags",
+          name: "tags",
+          widget: "list",
+          required: false
+        }
+      - {
+          label: "Body",
+          name: "body",
+          widget: "markdown"
+        }

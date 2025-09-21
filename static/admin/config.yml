@@ -13,24 +13,14 @@ media_folder: static/img
 public_folder: /img
 
 collections:
-  - name: "blog"
+  - name: "news"
     label: "News"
     folder: "src/content/news"
     create: true
     slug: "{{slug}}"
     fields:
-      - {
-          label: "Template Key",
-          name: "templateKey",
-          widget: "hidden",
-          default: "blog-post",
-        }
-      - {
-          label: "Thumbnail",
-          name: "thumbnail",
-          widget: image,
-          choose_url: false,
-        }
+      - { label: "Template Key", name: "templateKey", widget: "hidden", default: "blog-post" }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", choose_url: false }
       - {
           label: "Publish Date",
           name: "date",
@@ -38,45 +28,20 @@ collections:
           date_format: "DD/MM/YYYY",
           time_format: "hh:mm a",
           format: "YYYY-MM-DDTHH:mm:ssZ",
-          picker_utc: false,
+          picker_utc: false
         }
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Description", name: "description", widget: "text" }
       - { label: "Body", name: "body", widget: "markdown" }
-      # - {
-      #     label: "Nature of Enquiry",
-      #     name: "nature-of-enquiry",
-      #     widget: "select",
-      #     multiple: true,
-      #     min: 1,
-      #     options:
-      #       [
-      #         { label: "General", value: "general" },
-      #         { label: "Purchase", value: "purchase" },
-      #         { label: "Commissions", value: "commissions" },
-      #         { label: "Exhibitions", value: "exhibitions" },
-      #         { label: "Gallery Feature", value: "gallery-feature" },
-      #         { label: "Other", value: "other" },
-      #       ],
-      #   }
+
   - name: "work"
     label: "Work"
     folder: "src/content/work"
     create: true
     slug: "{{slug}}"
     fields:
-      - {
-          label: "Template Key",
-          name: "templateKey",
-          widget: "hidden",
-          default: "work-sub-page",
-        }
-      - {
-          label: "Thumbnail",
-          name: "thumbnail",
-          widget: image,
-          choose_url: false,
-        }
+      - { label: "Template Key", name: "templateKey", widget: "hidden", default: "work-sub-page" }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", choose_url: false }
       - {
           label: "Publish Date",
           name: "date",
@@ -84,29 +49,20 @@ collections:
           date_format: "DD/MM/YYYY",
           time_format: "hh:mm a",
           format: "YYYY-MM-DDTHH:mm:ssZ",
-          picker_utc: false,
+          picker_utc: false
         }
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Description", name: "description", widget: "text" }
       - { label: "Body", name: "body", widget: "markdown" }
+
   - name: "exhibitions"
     label: "Exhibitions"
     folder: "src/content/exhibitions"
     create: true
     slug: "{{slug}}"
     fields:
-      - {
-          label: "Template Key",
-          name: "templateKey",
-          widget: "hidden",
-          default: "exhibitions-sub-page",
-        }
-      - {
-          label: "Thumbnail",
-          name: "thumbnail",
-          widget: image,
-          choose_url: false,
-        }
+      - { label: "Template Key", name: "templateKey", widget: "hidden", default: "exhibitions-sub-page" }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", choose_url: false }
       - {
           label: "Publish Date",
           name: "date",
@@ -114,7 +70,7 @@ collections:
           date_format: "DD/MM/YYYY",
           time_format: "hh:mm a",
           format: "YYYY-MM-DDTHH:mm:ssZ",
-          picker_utc: false,
+          picker_utc: false
         }
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Description", name: "description", widget: "text" }
@@ -127,38 +83,18 @@ collections:
         label: "Landing Page"
         name: "index"
         fields:
-          - {
-              label: "Template Key",
-              name: "templateKey",
-              widget: "hidden",
-              default: "index-page",
-            }
-          - {
-              label: "Thumbnail",
-              name: "thumbnail",
-              widget: image,
-              choose_url: false,
-            }
-          - { label: Title, name: title, widget: string }
+          - { label: "Template Key", name: "templateKey", widget: "hidden", default: "index-page" }
+          - { label: "Thumbnail", name: "thumbnail", widget: "image", choose_url: false }
+          - { label: "Title", name: "title", widget: "string" }
           - { label: "Description", name: "description", widget: "string" }
           - { label: "Body", name: "body", widget: "markdown" }
 
       - file: "src/pages/profile/index.md"
-        label: "profile"
+        label: "Profile"
         name: "profile"
         fields:
-          - {
-              label: "Template Key",
-              name: "templateKey",
-              widget: "hidden",
-              default: "profile-page",
-            }
-          - {
-              label: "Thumbnail",
-              name: "thumbnail",
-              widget: image,
-              choose_url: false,
-            }
+          - { label: "Template Key", name: "templateKey", widget: "hidden", default: "profile-page" }
+          - { label: "Thumbnail", name: "thumbnail", widget: "image", choose_url: false }
           - { label: "Date", name: "date", widget: "date" }
           - { label: "Title", name: "title", widget: "string" }
           - { label: "Description", name: "description", widget: "string" }
@@ -169,26 +105,16 @@ collections:
               widget: "select",
               multiple: true,
               min: 1,
-              options: [{ label: "Main", value: "main" }],
+              options: [{ label: "Main", value: "main" }]
             }
           - { label: "Body", name: "body", widget: "markdown" }
 
       - file: "src/pages/work/index.md"
         label: "Work"
-        name: "work"
+        name: "work-page"
         fields:
-          - {
-              label: "Template Key",
-              name: "templateKey",
-              widget: "hidden",
-              default: "work-page",
-            }
-          - {
-              label: "Thumbnail",
-              name: "thumbnail",
-              widget: image,
-              choose_url: false,
-            }
+          - { label: "Template Key", name: "templateKey", widget: "hidden", default: "work-page" }
+          - { label: "Thumbnail", name: "thumbnail", widget: "image", choose_url: false }
           - { label: "Date", name: "date", widget: "date" }
           - { label: "Title", name: "title", widget: "string" }
           - { label: "Description", name: "description", widget: "string" }
@@ -196,21 +122,11 @@ collections:
           - { label: "Numbering", name: "number", widget: "number" }
 
       - file: "src/pages/exhibitions/index.md"
-        label: "exhibitions"
-        name: "exhibitions"
+        label: "Exhibitions"
+        name: "exhibitions-page"
         fields:
-          - {
-              label: "Template Key",
-              name: "templateKey",
-              widget: "hidden",
-              default: "exhibitions-page",
-            }
-          - {
-              label: "Thumbnail",
-              name: "thumbnail",
-              widget: image,
-              choose_url: false,
-            }
+          - { label: "Template Key", name: "templateKey", widget: "hidden", default: "exhibitions-page" }
+          - { label: "Thumbnail", name: "thumbnail", widget: "image", choose_url: false }
           - { label: "Date", name: "date", widget: "date" }
           - { label: "Title", name: "title", widget: "string" }
           - { label: "Description", name: "description", widget: "string" }
@@ -222,25 +138,15 @@ collections:
               widget: "select",
               multiple: true,
               min: 1,
-              options: [{ label: "Main", value: "main" }],
+              options: [{ label: "Main", value: "main" }]
             }
 
       - file: "src/pages/news/index.md"
-        label: "News"
-        name: "news"
+        label: "News Page"
+        name: "news-page"
         fields:
-          - {
-              label: "Template Key",
-              name: "templateKey",
-              widget: "hidden",
-              default: "news-page",
-            }
-          - {
-              label: "Thumbnail",
-              name: "thumbnail",
-              widget: image,
-              choose_url: false,
-            }
+          - { label: "Template Key", name: "templateKey", widget: "hidden", default: "news-page" }
+          - { label: "Thumbnail", name: "thumbnail", widget: "image", choose_url: false }
           - { label: "Date", name: "date", widget: "date" }
           - { label: "Title", name: "title", widget: "string" }
           - { label: "Description", name: "description", widget: "string" }
@@ -252,25 +158,15 @@ collections:
               widget: "select",
               multiple: true,
               min: 1,
-              options: [{ label: "Main", value: "main" }],
+              options: [{ label: "Main", value: "main" }]
             }
 
       - file: "src/pages/contact/index.md"
         label: "Contact"
         name: "contact"
         fields:
-          - {
-              label: "Template Key",
-              name: "templateKey",
-              widget: "hidden",
-              default: "contact-page",
-            }
-          - {
-              label: "Thumbnail",
-              name: "thumbnail",
-              widget: image,
-              choose_url: false,
-            }
+          - { label: "Template Key", name: "templateKey", widget: "hidden", default: "contact-page" }
+          - { label: "Thumbnail", name: "thumbnail", widget: "image", choose_url: false }
           - { label: "Date", name: "date", widget: "date" }
           - { label: "Title", name: "title", widget: "string" }
           - { label: "Description", name: "description", widget: "string" }
@@ -282,25 +178,26 @@ collections:
               widget: "select",
               multiple: true,
               min: 1,
-              options: [{ label: "Main", value: "main" }],
+              options: [{ label: "Main", value: "main" }]
             }
-      - name: "blog"
+
+      - name: "blog-posts"
         label: "Blog"
         folder: "src/content/blog"
         create: true
         slug: "{{slug}}"
         fields:
-        - { label: "Template Key", name: "templateKey", widget: "hidden", default: "blog-post" }
-        - { label: "Title", name: "title", widget: "string" }
-        - { label: "Description", name: "description", widget: "text" }
-        - {
-            label: "Publish Date",
-            name: "date",
-            widget: "datetime",
-            date_format: "DD/MM/YYYY",
-            time_format: "hh:mm a",
-            format: "YYYY-MM-DDTHH:mm:ssZ",
-            picker_utc: false
-          }
-        - { label: "Thumbnail", name: "thumbnail", widget: "image", choose_url: false }
-        - { label: "Body", name: "body", widget: "markdown" }
+          - { label: "Template Key", name: "templateKey", widget: "hidden", default: "blog-post" }
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Description", name: "description", widget: "text" }
+          - {
+              label: "Publish Date",
+              name: "date",
+              widget: "datetime",
+              date_format: "DD/MM/YYYY",
+              time_format: "hh:mm a",
+              format: "YYYY-MM-DDTHH:mm:ssZ",
+              picker_utc: false
+            }
+          - { label: "Thumbnail", name: "thumbnail", widget: "image", choose_url: false }
+          - { label: "Body", name: "body", widget: "markdown" }

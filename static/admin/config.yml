@@ -13,44 +13,26 @@ media_folder: static/img
 public_folder: /img
 
 collections:
-  - name: "artikel"
-    label: "Artikel"
-    folder: "src/content/blog"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {
-          label: "Template Key",
-          name: "templateKey",
-          widget: "hidden",
-          default: "artikel-sub-page",
-        }
-      - {
-          label: "Thumbnail",
-          name: "thumbnail",
-          widget: "image",
-          choose_url: false,
-        }
-      - {
-          label: "Publish Date",
-          name: "date",
-          widget: "datetime",
-          date_format: "DD/MM/YYYY",
-          time_format: "hh:mm a",
-          format: "YYYY-MM-DDTHH:mm:ssZ",
-          picker_utc: false,
-        }
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Description", name: "description", widget: "text" }
-      - { label: "Tags", name: "tags", widget: "list", default: [] }
-      - { label: "Body", name: "body", widget: "markdown" }
-
-  - name: "blog"
-    label: "News"
-    folder: "src/content/news"
-    create: true
-    slug: "{{slug}}"
-    fields:
+ - name: "artikel"
+   label: "Artikel"
+   folder: "src/content/artikel"
+   create: true
+   slug: "{{slug}}"
+   fields:
+    - { label: "Template Key", name: "templateKey", widget: "hidden", default: "artikel-sub-page" }
+    - { label: "Thumbnail", name: "thumbnail", widget: "image", choose_url: false }
+    - { label: "Publish Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+    - { label: "Title", name: "title", widget: "string" }
+    - { label: "Description", name: "description", widget: "text" }
+    - { label: "Tags", name: "tags", widget: "list", default: [] }
+    - { label: "Body", name: "body", widget: "markdown" }
+   
+ - name: "blog"
+   label: "News"
+   folder: "src/content/news"
+   create: true
+   slug: "{{slug}}"
+   fields:
       - { label: "Template Key", name: "templateKey", widget: "hidden", default: "blog-post" }
       - { label: "Thumbnail", name: "thumbnail", widget: "image", choose_url: false }
       - { label: "Publish Date", name: "date", widget: "datetime", date_format: "DD/MM/YYYY", time_format: "hh:mm a", format: "YYYY-MM-DDTHH:mm:ssZ", picker_utc: false }
@@ -58,12 +40,12 @@ collections:
       - { label: "Description", name: "description", widget: "text" }
       - { label: "Body", name: "body", widget: "markdown" }
 
-  - name: "work"
-    label: "Work"
-    folder: "src/content/work"
-    create: true
-    slug: "{{slug}}"
-    fields:
+ - name: "work"
+   label: "Work"
+   folder: "src/content/work"
+   create: true
+   slug: "{{slug}}"
+   fields:
       - { label: "Template Key", name: "templateKey", widget: "hidden", default: "work-sub-page" }
       - { label: "Thumbnail", name: "thumbnail", widget: "image", choose_url: false }
       - { label: "Publish Date", name: "date", widget: "datetime", date_format: "DD/MM/YYYY", time_format: "hh:mm a", format: "YYYY-MM-DDTHH:mm:ssZ", picker_utc: false }
@@ -71,12 +53,12 @@ collections:
       - { label: "Description", name: "description", widget: "text" }
       - { label: "Body", name: "body", widget: "markdown" }
 
-  - name: "exhibitions"
-    label: "Exhibitions"
-    folder: "src/content/exhibitions"
-    create: true
-    slug: "{{slug}}"
-    fields:
+ - name: "exhibitions"
+   label: "Exhibitions"
+   folder: "src/content/exhibitions"
+   create: true
+   slug: "{{slug}}"   
+   fields:
       - { label: "Template Key", name: "templateKey", widget: "hidden", default: "exhibitions-sub-page" }
       - { label: "Thumbnail", name: "thumbnail", widget: "image", choose_url: false }
       - { label: "Publish Date", name: "date", widget: "datetime", date_format: "DD/MM/YYYY", time_format: "hh:mm a", format: "YYYY-MM-DDTHH:mm:ssZ", picker_utc: false }
@@ -86,9 +68,9 @@ collections:
 
 
 
-  - name: "pages"
-    label: "Pages"
-    files:
+ - name: "pages" 
+   label: "Pages"
+   files:
       - file: "src/pages/index.md"
         label: "Landing Page"
         name: "index"
